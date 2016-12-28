@@ -1,19 +1,10 @@
 #!/usr/bin/env python
 from setuptools import find_packages
 from distutils.core import setup
+from pip.req import parse_requirements
 
-
-def parse_requirements(requirements):
-    f = open(requirements,'r')
-    req=[]
-    for l in f.readlines():
-        if not l.startswith('#'):
-            req.append(l.strip('\n'))
-    return (i for i in req)
-
-
-requirements = parse_requirements('requirements.txt')
-
+install_reqs = parse_requirements("requirements.txt")
+reqs = [str(ir.req) for ir in install_reqs]
 
 setup(name='uBooNECRTSlowMon',
       version='1.0',
@@ -21,6 +12,6 @@ setup(name='uBooNECRTSlowMon',
       author='Kevin Wierman',
       author_email='kwierman@fnal.gov',
       url='https://github.com/kwierman/uBooNECRTSlowMon',
-      requires = requirements,
+      requires = reqs,
       packages=find_packages(exclude=[]),
      )
