@@ -12,6 +12,5 @@ setup(name='uBooNECRTSlowMon',
       author='Kevin Wierman',
       author_email='kwierman@fnal.gov',
       url='https://github.com/kwierman/uBooNECRTSlowMon',
-      requires = reqs,
       packages=find_packages(exclude=[]),
      )
