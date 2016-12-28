@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-from distutils.core import setup, find_packages
+from setuptools import find_packages
+from distutils.core import setup
+
 
 def parse_requirements(requirements):
     f = open(requirements,'r')
