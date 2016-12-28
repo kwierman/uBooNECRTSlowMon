@@ -33,5 +33,8 @@ class BaseQuery:
         if index<len(self.constraints)-1:
           _query+=" and "
       _query+=" "
+
+    if self.limit is not None:
+      _query+=" limit " + str(self.limit)
     _query+=";"
     return self.client.query(_query)
