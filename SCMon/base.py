@@ -22,7 +22,7 @@ class BaseQuery:
   def constuct_query(self):
     _query="select "
     if self.column is not None:
-      _query+=column+" from "
+      _query+=self.column+" from "
     else:
       _query+=" * from "
     _query+= "\""+self.table+"\""
