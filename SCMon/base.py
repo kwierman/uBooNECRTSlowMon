@@ -7,12 +7,12 @@ class BaseQuery:
   _client = DataFrameClient('localhost', 8086, 'root', 'root', 'crt')
   table = "messages"
 
-  def __init__(self, client=None, column=None, constraints=None, limit=None):
+  def __init__(self, client=None, columns=None, constraints=None, limit=None):
     if client is not None:
       self.client = client
     else:
       self.client = _client
-    self.column = column
+    self.columns = column
     self.constraints=None
     self.limit = limit
 
@@ -21,8 +21,8 @@ class BaseQuery:
 
   def constuct_query(self):
     _query="select "
-    if self.column is not None:
-      _query+=self.column+" from "
+    if self.columns is not None:
+      _query+=','.join(self.columns)+" from "
     else:
       _query+=" * from "
     _query+= "\""+self.table+"\""

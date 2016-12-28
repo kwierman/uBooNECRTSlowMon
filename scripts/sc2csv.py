@@ -7,14 +7,11 @@ from SCMon import (MessageQuery,
 client = MessageQuery._client
 
 messages = MessageQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
-print messages.constuct_query()
+mq =  messages.constuct_query()
+print type(mq)
 
-messages = MessageQuery(client, columns='text', constraints='time > now() - 1d', limit=100)
-print messages.constuct_query()
 
-messages = MessageQuery(client, columns='title', constraints='time > now() - 1d', limit=100)
-print messages.constuct_query()
-
+"""
 feb_stats = FEBStatsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
 print feb_stats.constuct_query()
 
@@ -29,3 +26,4 @@ print drv_stats.constuct_query()
 columns = [u'text', u'title']
 events = EventsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
 print events.constuct_query()
+"""
