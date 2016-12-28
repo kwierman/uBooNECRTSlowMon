@@ -12,7 +12,7 @@ class BaseQuery:
       self.client = client
     else:
       self.client = _client
-    self.columns = column
+    self.columns = columns
     self.constraints=None
     self.limit = limit
 
