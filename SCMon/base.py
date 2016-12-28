@@ -34,4 +34,4 @@ class BaseQuery:
           _query+=" and "
       _query+=" "
     _query+=";"
-    return client.query(_query)
+    return self.client.query(_query)
