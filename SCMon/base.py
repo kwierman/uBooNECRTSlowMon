@@ -17,7 +17,7 @@ class BaseQuery:
     self.limit = limit
 
   def list_series(self):
-    return client.query("select * from /.*/ limit 1")
+    return self.client.query("select * from /.*/ limit 1")
 
   def constuct_query(self):
     _query="select "
