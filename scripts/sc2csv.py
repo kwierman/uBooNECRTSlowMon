@@ -29,9 +29,9 @@ def main(days, limit):
 
 if __name__ == "__main__":
   parser = OptionParser()
-  parser.add_option("-d", "--days", dest="days", type=int
+  parser.add_option("-d", "--days", dest="days", type=int,
                     help="Number of days to query", default=1)
-  parser.add_option("-l", "--limit", dest="limit", type=int
+  parser.add_option("-l", "--limit", dest="limit", type=int,
                     help="Maximum number of entries per column to query", default=1000)
 
   (options, args) = parser.parse_args()
