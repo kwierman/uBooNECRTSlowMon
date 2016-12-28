@@ -37,4 +37,4 @@ class BaseQuery:
     if self.limit is not None:
       _query+=" limit " + str(self.limit)
     _query+=";"
-    return self.client.query(_query)
+    return self.client.query(_query)[self.table]
