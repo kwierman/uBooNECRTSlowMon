@@ -56,8 +56,9 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         ts1ok = feb_rows['ts1ok'][0]
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
           return 1
-    except:
+    except Exception as e:
       self.logger.warning("Could not construct Query for feb:"+str(feb))
+      self.logger(e)
 
     return 0
 
@@ -107,7 +108,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
         ratesum+=rate
       return ratesum
     except Exception as e:
-      logger.error(e)
+      self.logger.error(e)
       return 0
 
 
@@ -134,7 +135,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           max_feb = feb
       return max_feb
     except Exception as e:
-      logger.error(e)
+      self.logger.error(e)
       return -1
 
 
@@ -162,6 +163,6 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           min_feb = feb
       return min_feb
     except Exception as e:
-      logger.error(e)
+      self.logger.error(e)
       return -1
 
