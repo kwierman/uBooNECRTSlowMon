@@ -7,7 +7,7 @@ from SCMon import (MessageQuery,
 from optparse import OptionParser
 
 def main(days, limit):
-  client = MessageQuery._client
+  client = MessageQuery.default_client()
 
   messages = MessageQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
   mq =  messages.constuct_query()

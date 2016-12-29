@@ -7,6 +7,10 @@ class BaseQuery:
   _client = DataFrameClient('localhost', 8086, 'root', 'root', 'crt')
   table = "messages"
 
+  @staticmethod
+  def default_client():
+    return _client
+
   def __init__(self, client=None, columns=None, constraints=None, limit=None):
     if client is not None:
       self.client = client
