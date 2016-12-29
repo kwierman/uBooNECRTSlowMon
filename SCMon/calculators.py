@@ -45,10 +45,11 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
 
       for feb in range(self.low,self.high):
+        label=feb
         if feb<10:
-          feb = "0{}".format(feb)
+          label = "0{}".format(feb)
           #get the most recent one matching the feb
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         lostcpu = feb_rows['lost_cpu'][0]
         lostfpga = feb_rows['lost_fpga'][0]
         ts0ok= feb_rows['ts0ok'][0]
@@ -98,9 +99,10 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
       ratesum=0
       for feb in range(self.low,self.high):
+        label = feb
         if feb<10:
-          feb = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+          label = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         rate = feb_rows['evrate'][0]
         ratesum+=rate
       return ratesum
@@ -123,9 +125,10 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
       ratesum=0
       for feb in range(self.low,self.high):
+        label = feb
         if feb<10:
-          feb = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+          label = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         rate = feb_rows['evrate'][0]
         if rate>max_rate:
           max_feb = feb
@@ -150,9 +153,10 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
       ratesum=0
       for feb in range(self.low,self.high):
+        label=feb
         if feb<10:
-          feb = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+          label = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         rate = feb_rows['evrate'][0]
         if rate<min_rate:
           min_feb = feb
