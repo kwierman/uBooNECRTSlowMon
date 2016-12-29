@@ -58,7 +58,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
           return 1
     except Exception as e:
       self.logger.warning("Could not construct Query for feb:"+str(feb))
-      self.logger(e)
+      self.logger.error(e)
 
     return 0
 
