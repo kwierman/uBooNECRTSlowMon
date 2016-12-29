@@ -27,7 +27,7 @@ class BaseCalcMixin:
 
   def update2epics(self, value):
     context = create_context()
-    context.var = self.path
+    context['var'] = self.path
     name = PV_NAMING_SCHEME.format(**context)
     pv = PV(name)
     return pv.put(value, wait=False)
