@@ -58,7 +58,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
           return 1
     except Exception as e:
-      self.logger.warning("Could not construct Query for feb:"+str(feb))
+      self.logger.warning("Could not locate entries for feb:"+str(feb))
       self.logger.error(e)
 
     return 0
