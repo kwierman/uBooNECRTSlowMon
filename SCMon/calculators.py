@@ -47,7 +47,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       lostfpga = df['lost_fpga'][0]
       ts0ok= df['ts0ok'][0]
       ts1ok = df['ts1ok'][0]
-      if lostcpu==0 and lostfpga==0 and ts0ok=None and ts1ok=None:
+      if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
         return 1
     return 0
 
