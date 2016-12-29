@@ -2,6 +2,10 @@ import logging
 from SCMon.calculators import (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum)
 query_classes = (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum)
 
+from SCMon import (MessageQuery,
+                   FEBStatsQuery,
+                   DRVStatsQuery,
+                   EventsQuery)
 
 def main(polltime=1):
   client = MessageQuery.default_client()
