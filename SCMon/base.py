@@ -44,4 +44,7 @@ class BaseQuery:
       _query+=" limit " + str(self.limit)
     _query+=";"
     self.logger.debug("Constructing Query: "+_query)
-    return self.client.query(_query)[self.table]
+    try:
+      return self.client.query(_query)[self.table]
+    except:
+      self.logger.error(self.client.query(_query)[self.table])
