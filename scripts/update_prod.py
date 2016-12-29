@@ -6,6 +6,7 @@ from SCMon import (MessageQuery,
                    FEBStatsQuery,
                    DRVStatsQuery,
                    EventsQuery)
+from time import sleep
 
 def main(polltime=1):
   client = MessageQuery.default_client()
