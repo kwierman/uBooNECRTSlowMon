@@ -17,7 +17,6 @@ def create_context():
         'var':''
     }
 
-
 class BaseCalcMixin:
   def update(self):
     value = self.get_value()
