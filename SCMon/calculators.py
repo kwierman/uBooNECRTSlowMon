@@ -50,8 +50,8 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
           #get the most recent one matching the feb
         feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        lostcpu = feb_rows['lost_cpu'][0]
-        lostfpga = feb_rows['lost_fpga'][0]
+        lostcpu = feb_rows['lostcpu'][0]
+        lostfpga = feb_rows['lostfpga'][0]
         ts0ok= feb_rows['ts0ok'][0]
         ts1ok = feb_rows['ts1ok'][0]
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
