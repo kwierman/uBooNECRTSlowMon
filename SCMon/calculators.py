@@ -45,6 +45,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
 
       for feb in range(self.low,self.high):
+        self.logger.debug("Working on FEB: "+str(feb))
         label=feb
         if feb<10:
           label = "0{}".format(feb)
