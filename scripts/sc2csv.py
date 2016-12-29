@@ -10,21 +10,21 @@ def main(days, limit):
   client = MessageQuery.default_client()
 
   messages = MessageQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
-  mq =  messages.constuct_query()
+  mq =  messages.construct_query()
   mq.to_csv("messages.csv")
 
   feb_stats = FEBStatsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
-  fq =  feb_stats.constuct_query()
+  fq =  feb_stats.construct_query()
   fq.to_csv("feb_stats.csv")
 
   columns = [u'daqon', u'datime', u'host', u'msperpoll', u'nclients', u'status']
   drv_stats = DRVStatsQuery(client, columns=columns, constraints='time > now() - 1d', limit=100)
-  dq =  drv_stats.constuct_query()
+  dq =  drv_stats.construct_query()
   dq.to_csv("drv_stats.csv")
 
   columns = [u'text', u'title']
   events = EventsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
-  eq = events.constuct_query()
+  eq = events.construct_query()
   eq.to_csv("events.csv")
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ class BaseQuery:
   def list_series(self):
     return self.client.query("select * from /.*/ limit 1")
 
-  def constuct_query(self):
+  def construct_query(self):
     _query="select "
     if self.columns is not None:
       _query+=','.join(self.columns)+" from "

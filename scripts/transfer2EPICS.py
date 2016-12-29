@@ -34,7 +34,7 @@ def main():
         query = query_cls(client, columns='*',
                           constraints=settings.time_interval,
                           limit=settings.limit_queries)
-        dataframe = query.constuct_query()
+        dataframe = query.construct_query()
         for column in dataframe:
             context = create_context()
             context['var']="{}_{}".format(query.table, column)
