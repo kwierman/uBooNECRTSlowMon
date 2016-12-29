@@ -34,6 +34,7 @@ class BaseCalcMixin:
 
 
 class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
+  logger = logging.getLogger("DRVErrFlag")
   low=0
   high=9
 
@@ -43,7 +44,10 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       if feb<10:
         feb = "0{}".format(feb)
       self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
-      df = self.construct_query()
+      try:
+        df = self.construct_query()
+      except:
+        self.logger.warning("Could not construct Query for feb:"+str(feb))
       lostcpu = df['lost_cpu'][0]
       lostfpga = df['lost_fpga'][0]
       ts0ok= df['ts0ok'][0]
