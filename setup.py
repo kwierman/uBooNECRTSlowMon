@@ -11,7 +11,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 scripts=[os.path.join('./scripts',i) for i in os.listdir('./scripts')]
 
 setup(name='uBooNECRTSlowMon',
-      version='1.0',
+      version='1.1',
       description='MicroBooNE CRT Slow Controls Monitoring Script',
       author='Kevin Wierman',
       author_email='kwierman@fnal.gov',
