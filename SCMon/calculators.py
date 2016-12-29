@@ -53,31 +53,31 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
 
 class DRVErrFlag_FTSide(DRVErrFlag_Base):
   path="drverrflag_FTSide"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=9
   high=22
 
 class DRVErrFlag_bottom(DRVErrFlag_Base):
   path="drverrflag_bottom"  
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=0
   high=9
 
 class DRVErrFlag_pipeside(DRVErrFlag_Base):
   path="drverrflag_pipeside"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low =22
   high=49
 
 class DRVErrFlag_top(DRVErrFlag_Base):
   path="drverrflag_top"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=49
   high=77
 
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   path="EVTRate_Sum"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=0
   high=77
 
@@ -94,7 +94,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
 class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   path="macbuff_occ"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=0
   high=77
 
@@ -114,7 +114,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
 
 class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   path="minbuff_occ"
-  logger = logging.getLogger(self.path)
+  logger = logging.getLogger(path)
   low=0
   high=77
 
