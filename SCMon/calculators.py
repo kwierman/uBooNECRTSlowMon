@@ -103,6 +103,8 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
     max_feb=0
 
     for feb in range(self.low,self.high):
+      if feb<10:
+        feb = "0{}".format(feb)
       self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
       df = self.construct_query()
       rate = df['evrate'][0]
