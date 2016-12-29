@@ -39,21 +39,24 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
   high=9
 
   def get_value(self):
-    self.limit=1
-    for feb in range(self.low,self.high):
-      if feb<10:
-        feb = "0{}".format(feb)
-      self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
-      try:
-        df = self.construct_query()
-        lostcpu = df['lost_cpu'][0]
-        lostfpga = df['lost_fpga'][0]
-        ts0ok= df['ts0ok'][0]
-        ts1ok = df['ts1ok'][0]
+    self.limit=100000
+    self.constraints = ['time > now() - 1d']#,'host = "feb{}"'.format(feb)]
+    try:
+      df = self.construct_query()
+
+      for feb in range(self.low,self.high):
+        if feb<10:
+          feb = "0{}".format(feb)
+          #get the most recent one matching the feb
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+        lostcpu = feb_rows['lost_cpu'][0]
+        lostfpga = feb_rows['lost_fpga'][0]
+        ts0ok= feb_rows['ts0ok'][0]
+        ts1ok = feb_rows['ts1ok'][0]
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
           return 1
-      except:
-        self.logger.warning("Could not construct Query for feb:"+str(feb))
+    except:
+      self.logger.warning("Could not construct Query for feb:"+str(feb))
 
     return 0
 
@@ -88,14 +91,22 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   high=77
 
   def get_value(self):
-    self.limit=1
-    ratesum=0
-    for feb in range(self.low,self.high):
-      self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
+    self.limit=100000
+    self.constraints = ['time > now() - 1d']
+    try:
       df = self.construct_query()
-      rate = df['evrate'][0]
-      ratesum+=rate
-    return ratesum
+
+      ratesum=0
+      for feb in range(self.low,self.high):
+        if feb<10:
+          feb = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+        rate = feb_rows['evrate'][0]
+        ratesum+=rate
+      return ratesum
+    except Exception as e:
+      logger.error(e)
+      return 0
 
 
 class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
@@ -105,19 +116,23 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   high=77
 
   def get_value(self):
-    self.limit=1
+    self.limit=100000
     max_rate = -1.e6
     max_feb=0
-
-    for feb in range(self.low,self.high):
-      if feb<10:
-        feb = "0{}".format(feb)
-      self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
+    try:
       df = self.construct_query()
-      rate = df['evrate'][0]
-      if rate>max_rate:
-        max_feb = feb
-    return max_feb
+      ratesum=0
+      for feb in range(self.low,self.high):
+        if feb<10:
+          feb = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+        rate = feb_rows['evrate'][0]
+        if rate>max_rate:
+          max_feb = feb
+      return max_feb
+    except Exception as e:
+      logger.error(e)
+      return -1
 
 
 class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
@@ -127,16 +142,22 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   high=77
 
   def get_value(self):
-    self.limit=1
+    self.limit=1000000
     min_rate = 1.e6
     min_feb=0
 
-    for feb in range(self.low,self.high):
-      self.constraints = ['time > now() - 1d','host = feb{}'.format(feb)]
+    try:
       df = self.construct_query()
-      rate = df['evrate'][0]
-      if rate<min_rate:
-        min_feb = feb
-    return min_feb
-
+      ratesum=0
+      for feb in range(self.low,self.high):
+        if feb<10:
+          feb = "0{}".format(feb)
+        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(feb)]
+        rate = feb_rows['evrate'][0]
+        if rate<min_rate:
+          min_feb = feb
+      return min_feb
+    except Exception as e:
+      logger.error(e)
+      return -1
 
