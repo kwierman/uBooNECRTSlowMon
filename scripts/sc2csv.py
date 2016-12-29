@@ -15,12 +15,12 @@ def main(days, limit):
 
   feb_stats = FEBStatsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
   fq =  feb_stats.constuct_query()
-  mq.to_csv("feb_stats.csv")
+  fq.to_csv("feb_stats.csv")
 
   columns = [u'daqon', u'datime', u'host', u'msperpoll', u'nclients', u'status']
   drv_stats = DRVStatsQuery(client, columns=columns, constraints='time > now() - 1d', limit=100)
   dq =  drv_stats.constuct_query()
-  dq.to_csv("dev_stats.csv")
+  dq.to_csv("drv_stats.csv")
 
   columns = [u'text', u'title']
   events = EventsQuery(client, columns='*', constraints='time > now() - 1d', limit=100)
