@@ -46,14 +46,15 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       self.constraints = ['time > now() - 1d','host = "feb{}"'.format(feb)]
       try:
         df = self.construct_query()
+        lostcpu = df['lost_cpu'][0]
+        lostfpga = df['lost_fpga'][0]
+        ts0ok= df['ts0ok'][0]
+        ts1ok = df['ts1ok'][0]
+        if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
+          return 1
       except:
         self.logger.warning("Could not construct Query for feb:"+str(feb))
-      lostcpu = df['lost_cpu'][0]
-      lostfpga = df['lost_fpga'][0]
-      ts0ok= df['ts0ok'][0]
-      ts1ok = df['ts1ok'][0]
-      if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
-        return 1
+
     return 0
 
 class DRVErrFlag_FTSide(DRVErrFlag_Base):
