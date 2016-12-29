@@ -9,7 +9,7 @@ class BaseQuery:
 
   @classmethod
   def default_client(cls):
-    return _client
+    return cls._client
 
   def __init__(self, client=None, columns=None, constraints=None, limit=None):
     if client is not None:
