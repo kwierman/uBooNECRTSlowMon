@@ -30,7 +30,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
 
   def get_value(self):
     self.limit=1000
-    self.constraints = ['time > now() - 1d']#,'host = "feb{}"'.format(feb)]
+    self.constraints = ['time > now() - 1d']
     try:
       df = self.construct_query()
 
@@ -40,10 +40,11 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         if feb<10:
           label = "0{}".format(feb)
         feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        lostcpu = feb_rows['lostcpu'][0]
-        lostfpga = feb_rows['lostfpga'][0]
-        ts0ok= feb_rows['ts0ok'][0]
-        ts1ok = feb_rows['ts1ok'][0]
+        index = len(feb_rows)-1
+        lostcpu = feb_rows['lostcpu'].tail()
+        lostfpga = feb_rows['lostfpga'].tail()
+        ts0ok= feb_rows['ts0ok'].tail()
+        ts1ok = feb_rows['ts1ok'].tail()
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
           return 1
     except Exception as e:
@@ -93,10 +94,11 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
         label = str(feb)
         if feb<10:
           label = "0{}".format(feb)
-          rate=0.
+        rate=0.
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evrate'][0])
+          index = len(feb_rows)-1
+          rate = float(feb_rows['evrate'].tail())
         except:
           self.logger.warning("Could not find rate for: "+label)
         ratesum+=float(rate)
@@ -125,7 +127,8 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evtsperpoll'][0])
+          index = len(feb_rows)-1
+          rate = float(feb_rows['evtsperpoll'].tail())
           if rate>max_rate:
             max_rate = rate
         except:
@@ -155,7 +158,8 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evtsperpoll'][0])
+          index = len(feb_rows)-1
+          rate = float(feb_rows['evtsperpoll'].tail())
           if rate < min_rate:
             min_rate = rate
         except:
