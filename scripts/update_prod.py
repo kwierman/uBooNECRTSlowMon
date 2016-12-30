@@ -8,16 +8,17 @@ from SCMon import (MessageQuery,
                    EventsQuery)
 from time import sleep
 
-def main(polltime=1):
+def main(polltime=5):
   client = MessageQuery.default_client()
   global query_classes
 
   while( 1 ):
     try:
       updates= [query_cls(client).update() for query_cls in query_classes]
+      sleep(polltime)
     except Exception as e:
       logging.error("Update Failed: {}".format(e))
-    sleep(polltime)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
