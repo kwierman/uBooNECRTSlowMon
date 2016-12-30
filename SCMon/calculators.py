@@ -113,6 +113,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
 
   def get_value(self):
     self.limit=100000
+    self.constraints = ['time > now() - 1d']
     max_rate = -1.e6
 
     try:
@@ -124,8 +125,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evtsperpoll'][len(feb_rows['evtsperpoll'])-1])
-          logging.debug("Rate found for Feb: {} : {}".format(label, rate))
+          rate = float(feb_rows['evtsperpoll'][0])
           if rate>max_rate:
             max_rate = rate
         except:
@@ -144,6 +144,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   def get_value(self):
     self.limit=1000000
     min_rate = 1.e6
+    self.constraints = ['time > now() - 1d']
 
     try:
       df = self.construct_query()
