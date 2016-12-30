@@ -18,6 +18,7 @@ def create_context():
     }
 
 class BaseCalcMixin:
+  logger = logging.getLogger("BaseCalculation")
   def update(self):
     value = self.get_value()
     return self.update2epics(value)
@@ -30,6 +31,7 @@ class BaseCalcMixin:
     context['var'] = self.path
     name = PV_NAMING_SCHEME.format(**context)
     pv = PV(name)
+    self.logger.info("Updating: "+name)
     return pv.put(value, wait=False)
 
 
