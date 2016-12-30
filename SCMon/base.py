@@ -48,4 +48,4 @@ class BaseQuery:
       return self.client.query(_query)[self.table]
     except Exception as e:
       self.logger.error(e)
-      self.logger.error(str(self.client.query(_query)[self.table]))
+      self.logger.error(str(self.client.query(_query)))
