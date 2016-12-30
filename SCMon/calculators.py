@@ -64,28 +64,33 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
       return -1
     return 0
 
+
 class DRVErrFlag_FTSide(DRVErrFlag_Base):
-  path="drverrflag_FTSide"
+  path=sc_set.DRVErrFlag_FTSide_Path
   logger = logging.getLogger(path)
   febs = sc_set.FT_FEBS
 
+
 class DRVErrFlag_bottom(DRVErrFlag_Base):
-  path="drverrflag_bottom"  
+  path=sc_set.DRVErrFlag_bottom_Path
   logger = logging.getLogger(path)
   febs = sc_set.BOTTOM_FEBS
 
+
 class DRVErrFlag_pipeside(DRVErrFlag_Base):
-  path="drverrflag_pipeside"
+  path=sc_set.DRVErrFlag_pipeside_Path
   logger = logging.getLogger(path)
   febs = sc_set.PIPE_FEBS
 
+
 class DRVErrFlag_top(DRVErrFlag_Base):
-  path="drverrflag_top"
+  path=sc_set.DRVErrFlag_top_Path
   logger = logging.getLogger(path)
   febs = sc_set.TOP_FEBS
 
+
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
-  path="evtrate_sum"
+  path=sc_set.EVTRate_Sum_Path
   logger = logging.getLogger(path)
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
@@ -114,10 +119,9 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
 
 class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
-  path="maxbuff_occ"
+  path=sc_set.MaxBuff_OCC_Path
   logger = logging.getLogger(path)
-  low=0
-  high=77
+  febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
     self.limit=100000
@@ -126,7 +130,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
     try:
       df = self.construct_query()
       ratesum=0
-      for feb in range(self.low,self.high):
+      for feb in self.febs:
         label = str(feb)
         if feb<10:
           label = "0{}".format(feb)
@@ -144,10 +148,9 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
 
 
 class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
-  path="minbuff_occ"
+  path=sc_set.MinBuff_OCC_Path
   logger = logging.getLogger(path)
-  low=0
-  high=77
+  febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
     self.limit=1000000
@@ -157,7 +160,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
     try:
       df = self.construct_query()
       ratesum=0
-      for feb in range(self.low,self.high):
+      for feb in self.febs:
         label=str(feb)
         if feb<10:
           label = "0{}".format(feb)

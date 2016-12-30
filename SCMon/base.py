@@ -19,7 +19,7 @@ class BaseQuery:
     else:
       self.client = _client
     self.columns = columns
-    self.constraints=None
+    self.constraints=constraints
     self.limit = limit
 
   def list_series(self):
