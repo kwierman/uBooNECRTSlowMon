@@ -51,7 +51,6 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         label=str(feb)
         if feb<10:
           label = "0{}".format(feb)
-          #get the most recent one matching the feb
         feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         lostcpu = feb_rows['lostcpu'][0]
         lostfpga = feb_rows['lostfpga'][0]
@@ -90,7 +89,7 @@ class DRVErrFlag_top(DRVErrFlag_Base):
   high=77
 
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
-  path="EVTRate_Sum"
+  path="evtrate_sum"
   logger = logging.getLogger(path)
   low=0
   high=77
@@ -120,7 +119,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
 
 class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
-  path="macbuff_occ"
+  path="maxbuff_occ"
   logger = logging.getLogger(path)
   low=0
   high=77
