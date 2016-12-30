@@ -31,7 +31,7 @@ class BaseCalcMixin:
     context['var'] = self.path
     name = PV_NAMING_SCHEME.format(**context)
     pv = PV(name)
-    self.logger.info("Updating: "+name)
+    self.logger.info("Updating: "+name + " with value: {}".format(value))
     return pv.put(value, wait=False)
 
 
