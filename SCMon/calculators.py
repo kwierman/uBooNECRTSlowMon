@@ -99,18 +99,18 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
     try:
       df = self.construct_query()
 
-      ratesum=0
+      ratesum=0.
       for feb in range(self.low,self.high):
         label = feb
         if feb<10:
           label = "0{}".format(feb)
-          rate=0
+          rate=0.
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = feb_rows['evrate'][0]
+          rate = float(feb_rows['evrate'][0])
         except:
           self.logger.warning("Could not find rate for: "+label)
-        ratesum+=rate
+        ratesum+=float(rate)
       return ratesum
     except Exception as e:
       self.logger.error(e)
@@ -136,7 +136,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = feb_rows['evrate'][0]
+          rate = float(feb_rows['evrate'][0])
           if rate>max_rate:
             max_feb = feb
         except:
@@ -167,7 +167,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = feb_rows['evrate'][0]
+          rate = float(feb_rows['evrate'][0])
           if rate<min_rate:
             min_feb = feb
         except:
