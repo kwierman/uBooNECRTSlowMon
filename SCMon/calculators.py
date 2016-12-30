@@ -87,7 +87,7 @@ class DRVErrFlag_top(DRVErrFlag_Base):
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   path="evtrate_sum"
   logger = logging.getLogger(path)
-  febs = sc_set.FT_FEBS+sc.set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
+  febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
     self.limit=100000
