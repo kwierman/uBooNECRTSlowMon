@@ -125,7 +125,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           rate = float(feb_rows['evtsperpoll'][0])
-          logging.debug("Rate found for Feb: {} : {}".format(label, rate))
+          logging.debug("Rate found for Feb: {} : {}".format(label, feb_rows['evtsperpoll'][0]))
           if rate>max_rate:
             max_rate = rate
         except:
