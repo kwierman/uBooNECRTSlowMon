@@ -41,10 +41,10 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
         index = len(feb_rows)-1
-        lostcpu = feb_rows['lostcpu'].tail()
-        lostfpga = feb_rows['lostfpga'].tail()
-        ts0ok= feb_rows['ts0ok'].tail()
-        ts1ok = feb_rows['ts1ok'].tail()
+        lostcpu = feb_rows['lostcpu'][index]
+        lostfpga = feb_rows['lostfpga'][index]
+        ts0ok= feb_rows['ts0ok'][index]
+        ts1ok = feb_rows['ts1ok'][index]
         if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
           return 1
     except Exception as e:
@@ -98,7 +98,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           index = len(feb_rows)-1
-          rate = float(feb_rows['evrate'].tail())
+          rate = float(feb_rows['evrate'][index])
         except:
           self.logger.warning("Could not find rate for: "+label)
         ratesum+=float(rate)
@@ -128,7 +128,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           index = len(feb_rows)-1
-          rate = float(feb_rows['evtsperpoll'].tail())
+          rate = float(feb_rows['evtsperpoll'][index])
           if rate>max_rate:
             max_rate = rate
         except:
@@ -159,7 +159,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           index = len(feb_rows)-1
-          rate = float(feb_rows['evtsperpoll'].tail())
+          rate = float(feb_rows['evtsperpoll'][index])
           if rate < min_rate:
             min_rate = rate
         except:
