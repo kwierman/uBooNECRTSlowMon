@@ -15,7 +15,7 @@ EPICS_HOST_ARCH="linux-x86_64"
 PV_NAMING_SCHEME="{detector}_{subsys}_{rack}_{unit}/{var}"
 
 BASE_PATH="uB_DAQStatus_CRTDAQX_evb"
-DRVErrFlag_FTSide_Path = "drverrflag_FTSide"
+DRVErrFlag_FTSide_Path = "drverrflag_ftside"
 DRVErrFlag_bottom_Path = "drverrflag_bottom"
 DRVErrFlag_pipeside_Path = "drverrflag_pipeside"
 DRVErrFlag_top_Path = "drverrflag_top"
