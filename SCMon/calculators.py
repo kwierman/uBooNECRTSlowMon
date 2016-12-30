@@ -77,6 +77,9 @@ class DRVErrFlag_top(DRVErrFlag_Base):
   logger = logging.getLogger(path)
   febs = sc_set.TOP_FEBS
 
+  def get_value(self):
+    return 0
+
 
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   path=sc_set.EVTRate_Sum_Path
