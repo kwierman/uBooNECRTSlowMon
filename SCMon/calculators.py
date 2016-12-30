@@ -46,7 +46,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
 
       for feb in range(self.low,self.high):
         self.logger.debug("Working on FEB: "+str(feb))
-        label=feb
+        label=str(feb)
         if feb<10:
           label = "0{}".format(feb)
           #get the most recent one matching the feb
@@ -101,7 +101,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
       ratesum=0.
       for feb in range(self.low,self.high):
-        label = feb
+        label = str(feb)
         if feb<10:
           label = "0{}".format(feb)
           rate=0.
@@ -131,7 +131,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
       ratesum=0
       for feb in range(self.low,self.high):
-        label = feb
+        label = str(feb)
         if feb<10:
           label = "0{}".format(feb)
         try:
@@ -162,7 +162,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
       ratesum=0
       for feb in range(self.low,self.high):
-        label=feb
+        label=str(feb)
         if feb<10:
           label = "0{}".format(feb)
         try:
