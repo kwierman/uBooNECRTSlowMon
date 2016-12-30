@@ -29,7 +29,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
   febs = sc_set.FT_FEBS
 
   def get_value(self):
-    self.limit=100000
+    self.limit=1000
     self.constraints = ['time > now() - 1d']#,'host = "feb{}"'.format(feb)]
     try:
       df = self.construct_query()
@@ -83,7 +83,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
-    self.limit=100000
+    self.limit=1000
     self.constraints = ['time > now() - 1d']
     try:
       df = self.construct_query()
@@ -112,7 +112,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
-    self.limit=100000
+    self.limit=1000
     self.constraints = ['time > now() - 1d']
     max_rate = -1.e6
 
@@ -142,7 +142,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
-    self.limit=1000000
+    self.limit=1000
     min_rate = 1.e6
     self.constraints = ['time > now() - 1d']
 
