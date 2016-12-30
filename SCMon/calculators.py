@@ -125,6 +125,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           rate = float(feb_rows['evtsperpoll'][0])
+          logging.debug("Rate found for Feb: {} : {}".format(label, rate))
           if rate>max_rate:
             max_rate = rate
         except:
@@ -154,7 +155,7 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           rate = float(feb_rows['evtsperpoll'][0])
-          if rate<min_rate:
+          if rate < min_rate:
             min_rate = rate
         except:
           self.logger.warning("Could not find data for feb: "+label)
