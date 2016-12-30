@@ -8,16 +8,6 @@ from SCMon import settings as sc_set
 from epics import PV
 
 
-def create_context():
-    return {
-        'detector':"uB",
-        'subsys': 'DAQStatus',
-        'rack': "CRTDAQX",
-        'unit': 'evb',
-        'var':''
-    }
-
-
 class BaseCalcMixin:
   logger = logging.getLogger("BaseCalculation")
   def update(self):
@@ -28,11 +18,9 @@ class BaseCalcMixin:
     pass
 
   def update2epics(self, value):
-    context = create_context()
-    context['var'] = self.path
-    name = sc_set.PV_NAMING_SCHEME.format(**context)
+    name = sc_set.BASE_PATH+"/"+self.path
     pv = PV(name)
-    self.logger.info("Updating: "+name + " with value: {}".format(value))
+    self.logger.info("Updating: " + name + " with value: {}".format(value))
     return pv.put(value, wait=False)
 
 
