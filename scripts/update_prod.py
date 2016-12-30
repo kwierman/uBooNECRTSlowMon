@@ -19,7 +19,6 @@ def main(polltime=5):
     except Exception as e:
       logging.error("Update Failed: {}".format(e))
 
-
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     main()
