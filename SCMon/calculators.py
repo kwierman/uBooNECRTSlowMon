@@ -60,7 +60,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
     except Exception as e:
       self.logger.warning("Could not locate entries for feb:"+str(feb))
       self.logger.error(e)
-
+      return -1
     return 0
 
 class DRVErrFlag_FTSide(DRVErrFlag_Base):
@@ -104,8 +104,12 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
         label = feb
         if feb<10:
           label = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        rate = feb_rows['evrate'][0]
+          rate=0
+        try:
+          feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
+          rate = feb_rows['evrate'][0]
+        except:
+          self.logger.warning("Could not find rate for: "+label)
         ratesum+=rate
       return ratesum
     except Exception as e:
@@ -130,10 +134,13 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         label = feb
         if feb<10:
           label = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        rate = feb_rows['evrate'][0]
-        if rate>max_rate:
-          max_feb = feb
+        try:
+          feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
+          rate = feb_rows['evrate'][0]
+          if rate>max_rate:
+            max_feb = feb
+        except:
+          self.logger.warning("Could not find data for feb: "+label)
       return max_feb
     except Exception as e:
       self.logger.error(e)
@@ -158,10 +165,13 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
         label=feb
         if feb<10:
           label = "0{}".format(feb)
-        feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        rate = feb_rows['evrate'][0]
-        if rate<min_rate:
-          min_feb = feb
+        try:
+          feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
+          rate = feb_rows['evrate'][0]
+          if rate<min_rate:
+            min_feb = feb
+        except:
+          self.logger.warning("Could not find data for feb: "+label)
       return min_feb
     except Exception as e:
       self.logger.error(e)
