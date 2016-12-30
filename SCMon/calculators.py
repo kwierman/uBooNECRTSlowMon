@@ -126,7 +126,7 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   def get_value(self):
     self.limit=100000
     max_rate = -1.e6
-    max_feb=0
+
     try:
       df = self.construct_query()
       ratesum=0
@@ -136,12 +136,12 @@ class MaxBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evrate'][0])
+          rate = float(feb_rows['evtsperpoll'][0])
           if rate>max_rate:
-            max_feb = feb
+            max_rate = rate
         except:
           self.logger.warning("Could not find data for feb: "+label)
-      return max_feb
+      return max_rate
     except Exception as e:
       self.logger.error(e)
       return -1
@@ -155,7 +155,6 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
   def get_value(self):
     self.limit=1000000
     min_rate = 1.e6
-    min_feb=0
 
     try:
       df = self.construct_query()
@@ -166,12 +165,12 @@ class MinBuff_OCC(BaseCalcMixin, FEBStatsQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          rate = float(feb_rows['evrate'][0])
+          rate = float(feb_rows['evtsperpoll'][0])
           if rate<min_rate:
-            min_feb = feb
+            min_rate = rate
         except:
           self.logger.warning("Could not find data for feb: "+label)
-      return min_feb
+      return min_rate
     except Exception as e:
       self.logger.error(e)
       return -1
