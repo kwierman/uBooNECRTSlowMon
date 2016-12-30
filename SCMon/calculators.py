@@ -3,10 +3,10 @@ from SCMon import (MessageQuery,
                    FEBStatsQuery,
                    DRVStatsQuery,
                    EventsQuery)
+from SCMon import settings as sc_set
 
 from epics import PV
 
-PV_NAMING_SCHEME="{detector}_{subsys}_{rack}_{unit}/{var}"
 
 def create_context():
     return {
@@ -16,6 +16,7 @@ def create_context():
         'unit': 'evb',
         'var':''
     }
+
 
 class BaseCalcMixin:
   logger = logging.getLogger("BaseCalculation")
@@ -29,7 +30,7 @@ class BaseCalcMixin:
   def update2epics(self, value):
     context = create_context()
     context['var'] = self.path
-    name = PV_NAMING_SCHEME.format(**context)
+    name = sc_set.PV_NAMING_SCHEME.format(**context)
     pv = PV(name)
     self.logger.info("Updating: "+name + " with value: {}".format(value))
     return pv.put(value, wait=False)
@@ -37,8 +38,7 @@ class BaseCalcMixin:
 
 class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
   logger = logging.getLogger("DRVErrFlag")
-  low=0
-  high=9
+  febs = sc_set.FT_FEBS
 
   def get_value(self):
     self.limit=100000
@@ -46,7 +46,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
     try:
       df = self.construct_query()
 
-      for feb in range(self.low,self.high):
+      for feb in self.febs:
         self.logger.debug("Working on FEB: "+str(feb))
         label=str(feb)
         if feb<10:
@@ -67,32 +67,27 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
 class DRVErrFlag_FTSide(DRVErrFlag_Base):
   path="drverrflag_FTSide"
   logger = logging.getLogger(path)
-  low=9
-  high=22
+  febs = sc_set.FT_FEBS
 
 class DRVErrFlag_bottom(DRVErrFlag_Base):
   path="drverrflag_bottom"  
   logger = logging.getLogger(path)
-  low=0
-  high=9
+  febs = sc_set.BOTTOM_FEBS
 
 class DRVErrFlag_pipeside(DRVErrFlag_Base):
   path="drverrflag_pipeside"
   logger = logging.getLogger(path)
-  low =22
-  high=49
+  febs = sc_set.PIPE_FEBS
 
 class DRVErrFlag_top(DRVErrFlag_Base):
   path="drverrflag_top"
   logger = logging.getLogger(path)
-  low=49
-  high=77
+  febs = sc_set.TOP_FEBS
 
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
   path="evtrate_sum"
   logger = logging.getLogger(path)
-  low=0
-  high=77
+  febs = sc_set.FT_FEBS+sc.set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
     self.limit=100000
@@ -101,7 +96,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
       df = self.construct_query()
 
       ratesum=0.
-      for feb in range(self.low,self.high):
+      for feb in self.febs:
         label = str(feb)
         if feb<10:
           label = "0{}".format(feb)
