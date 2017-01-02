@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+from SCMon.queries import MessageQuery
 from SCMon.calculators import (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum, MaxBuff_OCC, MinBuff_OCC)
 from SCMon import settings
 
