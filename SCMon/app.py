@@ -14,6 +14,7 @@ class App():
         self.pidfile_timeout = 5
             
     def run(self):
+        client = MessageQuery.default_client()
         while True:
             prev_time = datetime.now()
             updates= [query_cls(client).update() for query_cls in self.query_classes]
