@@ -1,4 +1,4 @@
-from datetime import datetime
+import time
 import logging
 from SCMon.queries import MessageQuery
 from SCMon.calculators import (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum, MaxBuff_OCC, MinBuff_OCC)
@@ -17,9 +17,9 @@ class App():
     def run(self):
         client = MessageQuery.default_client()
         while True:
-            prev_time = datetime.now()
+            prev_time = int(time.time())
             updates= [query_cls(client).update() for query_cls in self.query_classes]
-            current_time = datetime.now()
+            current_time = int(time.time())
             time_to_sleep = current_time.seconds-prev_time.seconds-settings.POLL_RATE
             if time_to_sleep>0:
                 time.sleep(time_to_sleep)
