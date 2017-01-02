@@ -8,6 +8,10 @@ from SCMon import (MessageQuery,
                    EventsQuery)
 from time import sleep
 
+
+
+
+
 def main(polltime=5):
   client = MessageQuery.default_client()
   global query_classes
