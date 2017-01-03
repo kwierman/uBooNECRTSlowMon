@@ -2,4 +2,4 @@ from SCMon.queries import (MessageQuery,
                       FEBStatsQuery,
                       DRVStatsQuery,
                       EventsQuery)
-from SCMon.App import app
+from SCMon.app import App
