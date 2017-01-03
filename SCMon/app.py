@@ -43,6 +43,6 @@ class App():
             prev_time = int(time.time())
             updates= [query.update() for query in self.__queries__]
             current_time = int(time.time())
-            time_to_sleep = current_time-prev_time-settings.POLL_RATE
+            time_to_sleep = current_time-prev_time+settings.POLL_RATE
             if time_to_sleep>0:
                 time.sleep(time_to_sleep)
