@@ -113,7 +113,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
 class BaseOccQuery(BaseCalcMixin, FEBStatsQuery):
   def __init__(self, **kwargs):
-    super(BaseQuery, self).__init__(**kwargs)
+    BaseQuery.__init__(self, **kwargs)
     self.updates=[]
     self.max_len = sc_set.OCC_UPDATE_RATE/sc_set.POLL_RATE
   def update(self):
