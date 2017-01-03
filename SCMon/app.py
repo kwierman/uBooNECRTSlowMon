@@ -1,5 +1,6 @@
 import time
 import logging
+from logging.handlers import RotatingFileHandler
 from SCMon.queries import MessageQuery
 from SCMon.calculations import query_classes
 from SCMon import settings
@@ -15,7 +16,8 @@ class App():
 
         self.logger = logging.getLogger()
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        self.handler = logging.FileHandler(settings.LOG_PATH)
+        self.handler = RotatingFileHandler(
+              settings.LOG_PATH, maxBytes=2000000, backupCount=5)
         self.logger.setLevel(logging.DEBUG)
         self.handler.setFormatter(self.formatter)
         self.logger.addHandler(self.handler)
