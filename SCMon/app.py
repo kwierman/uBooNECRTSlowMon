@@ -14,7 +14,7 @@ class App():
         self.pidfile_path =  settings.PID_PATH
         self.pidfile_timeout = 5
         self.__client__ = MessageQuery.default_client()
-        self.__queries__ = [query_cls(__client__) for query_cls in self.query_classes]
+        self.__queries__ = [query_cls(self.__client__) for query_cls in self.query_classes]
             
     def run(self):
 
