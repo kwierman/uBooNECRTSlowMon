@@ -5,13 +5,17 @@ from SCMon import settings as sc_set
 
 
 class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
+  """
+    Calculates the sum of event rates in the CRT and reports
+    the sum to EPICS
+  """
   path=sc_set.EVTRate_Sum_Path
   logger = logging.getLogger(__name__)
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
 
   def get_value(self):
     self.limit=1000
-    self.constraints = ['time > now() - 1d']
+    self.constraints = [sc_set.time_interval]
     try:
       df = self.construct_query()
 

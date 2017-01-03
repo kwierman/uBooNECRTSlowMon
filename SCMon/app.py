@@ -6,8 +6,17 @@ from SCMon.calculations import query_classes
 from SCMon import settings
 
 class App():
+    """
+        Defines the daemonized application for running the Slow Controls interface
+    """
     
     def __init__(self):
+        """
+            Sets up logging and daemon definitions for this project.
+
+            :note: Greedily grabs the root logger. This is so that everything in the root 
+            hierarchy logs properly
+        """
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
         self.stderr_path = '/dev/tty'
@@ -17,7 +26,7 @@ class App():
         self.logger = logging.getLogger()
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         self.handler = RotatingFileHandler(
-              settings.LOG_PATH, maxBytes=2000000, backupCount=5)
+              settings.LOG_PATH, maxBytes=settings.LOG_LENGTH_BYTES, backupCount=settings.N_LOGS-1)
         self.logger.setLevel(logging.DEBUG)
         self.handler.setFormatter(self.formatter)
         self.logger.addHandler(self.handler)
@@ -26,6 +35,9 @@ class App():
         self.__queries__ = [query_cls(client=self.__client__) for query_cls in query_classes]
             
     def run(self):
+        """
+            Runs the VERY simple event loop which simply queries on each query type.
+        """
 
         while True:
             prev_time = int(time.time())

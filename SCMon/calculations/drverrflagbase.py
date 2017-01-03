@@ -1,14 +1,26 @@
 from SCMon import FEBStatsQuery
 from SCMon.calculations.base import BaseCalcMixin
 import logging
+from SCMon import settings
 
 class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
+  """
+    Base class for driver error flag calculations.
+    Overwrite `febs`  in derived classes to utilize.
+  """
   logger = logging.getLogger(__name__)
   febs = []
 
   def get_value(self):
+    """
+      Gets the corresponding error flags from influx
+      and if there are any bad values, updates the flag.
+
+      :returns: 0 if good. 1 if bad, -1 if communication or 
+      code errors.
+    """
     self.limit=1000
-    self.constraints = ['time > now() - 1d']
+    self.constraints = [settings.time_interval]
     try:
       df = self.construct_query()
 

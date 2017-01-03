@@ -1,19 +1,28 @@
 """
-  Constructs the basic queries for the CRT system.
+  Constructs the basic queries for the CRT system influxDB.
 """
 from influxdb import InfluxDBClient, DataFrameClient
 import logging
 
 class BaseQuery:
+  """
+    Performs the formatting and query construction/issuing for 
+    queries to influxDB
+  """
   logger = logging.getLogger(__name__)
   _client = DataFrameClient('localhost', 8086, 'root', 'root', 'crt')
   table = "messages"
 
   @classmethod
   def default_client(cls):
+    """
+      Utility function for grabbing the default client. 
+      Using a static definition this way avoids a LOT of overhead
+    """
     return cls._client
 
-  def __init__(self, client=None, columns=None, constraints=None, limit=None, handler=None):
+  def __init__(self, client=None, columns=None, constraints=None, 
+               limit=None, handler=None):
     if client is not None:
       self.client = client
     else:

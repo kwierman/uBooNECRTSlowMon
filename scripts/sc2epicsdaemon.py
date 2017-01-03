@@ -1,3 +1,6 @@
+"""
+  Starts stops and restarts the SC daemon process
+"""
 from daemon import runner
 from SCMon.app import App
 from SCMon import settings

@@ -3,6 +3,10 @@ from SCMon import settings as sc_set
 import logging
 
 class MaxBuff_OCC(BaseOccQuery):
+  """
+    Calculates out of all of the FEBs, what the
+    maximum buffer occupancy is.
+  """
   path=sc_set.MaxBuff_OCC_Path
   logger = logging.getLogger(__name__)
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
@@ -10,7 +14,7 @@ class MaxBuff_OCC(BaseOccQuery):
 
   def get_value(self):
     self.limit=1000
-    self.constraints = ['time > now() - 1d']
+    self.constraints = [sc_set.time_interval]
     max_rate = -1.e6
 
     try:

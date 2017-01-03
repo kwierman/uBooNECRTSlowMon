@@ -3,6 +3,9 @@ from SCMon.calculations.base import BaseCalcMixin
 from SCMon import settings as sc_set
 
 class BaseOccQuery(BaseCalcMixin, FEBStatsQuery):
+  """
+    Defines update override for occupation calculations
+  """
   max_len = sc_set.OCC_UPDATE_RATE/sc_set.POLL_RATE
   def update(self):
     value = self.get_value()

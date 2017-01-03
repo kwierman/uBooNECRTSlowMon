@@ -1,3 +1,6 @@
+"""
+  Prints out the current CRT system values
+"""
 from epics import PV
 import logging
 from SCMon import settings

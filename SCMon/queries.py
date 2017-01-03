@@ -1,3 +1,7 @@
+"""
+  Table definitions for each of the tables in the CRT interface
+"""
+
 from SCMon.base import BaseQuery
 
 class MessageQuery(BaseQuery):

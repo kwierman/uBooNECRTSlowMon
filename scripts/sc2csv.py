@@ -1,3 +1,6 @@
+"""
+  Dumps out the last `d` days up to `l` entries of influx entries
+"""
 #!python
 from SCMon import (MessageQuery,
                    FEBStatsQuery,
