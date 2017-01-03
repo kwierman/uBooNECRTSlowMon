@@ -3,7 +3,10 @@ from SCMon.app import App
 from SCMon import settings
 import logging
 
+
 logging.basicConfig(filename=settings.LOG_PATH,level=logging.DEBUG)
+logger = logging.getLogger("SCMon")
+logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler = logging.FileHandler(settings.LOG_PATH)
 handler.setFormatter(formatter)
