@@ -8,7 +8,7 @@ from evtratesum import EVTRate_Sum
 from maxbuffocc import MaxBuff_OCC
 from minbuffocc import MinBuff_OCC
 
-query_classes = (DRVErrFlag_Base, DRVErrFlag_bottom, DRVErrFlag_Top, 
-                 DRVErrFlag_FTSide, DRVErrFlag_PipeSide, EVTRate_Sum, 
-                 MaxBuff_OCC, MinBuff_OCC)
+query_classes = (DRVErrFlag_bottom, DRVErrFlag_Top, DRVErrFlag_FTSide, 
+                 DRVErrFlag_PipeSide, EVTRate_Sum, MaxBuff_OCC, 
+                 MinBuff_OCC)
 
