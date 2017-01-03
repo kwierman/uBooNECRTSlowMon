@@ -8,6 +8,7 @@ TOP_FEBS=[62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
 time_interval= 'time > now() - 1d'
 limit_queries = 1
 POLL_RATE = 5
+OCC_UPDATE_RATE=30
 PID_PATH = '/home/kwierman/scmon.pid'
 LOG_PATH = '/home/kwierman/scmon.log'
 

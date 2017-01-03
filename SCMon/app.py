@@ -13,12 +13,14 @@ class App():
         self.stderr_path = '/dev/tty'
         self.pidfile_path =  settings.PID_PATH
         self.pidfile_timeout = 5
+        self.__client__ = MessageQuery.default_client()
+        self.__queries__ = [query_cls(__client__) for query_cls in self.query_classes]
             
     def run(self):
-        client = MessageQuery.default_client()
+
         while True:
             prev_time = int(time.time())
-            updates= [query_cls(client).update() for query_cls in self.query_classes]
+            updates= [query.update() for query in self.__queries__]
             current_time = int(time.time())
             time_to_sleep = current_time-prev_time-settings.POLL_RATE
             if time_to_sleep>0:

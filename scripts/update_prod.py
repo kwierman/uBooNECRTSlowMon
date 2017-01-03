@@ -15,10 +15,12 @@ from time import sleep
 def main(polltime=5):
   client = MessageQuery.default_client()
   global query_classes
+  queries = [query_cls(client) for query_cls in query_classes]
+
 
   while( 1 ):
     try:
-      updates= [query_cls(client).update() for query_cls in query_classes]
+      updates= [query.update() for query in queries]
       sleep(polltime)
     except Exception as e:
       logging.error("Update Failed: {}".format(e))
