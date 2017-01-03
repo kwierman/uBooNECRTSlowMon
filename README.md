@@ -31,3 +31,34 @@ This only installs the package for the user. Using the examples is now as easy a
 ~~~ bash
 python ~/.local/bin/example.py
 ~~~
+## Usage 
+
+Before using any of the features here, it's good to note that the file [settings.py](https://github.com/kwierman/uBooNECRTSlowMon/blob/master/SCMon/settings.py) can be used to configure this system. Either fork and change the desired value or install from source and modify on build. This is supposed to emulate the Django/wekzeuge-esque way of using local settings, minus the local settings.
+
+The package ships with some scripts with which to start. It's good to note that these need to be run with `python` as opposed to using the pathized run time command. This is due to UPS being a poor excuse for virtualization.
+
+### Running the scripts
+
+Since these scripts are installed per-user, most of these are run via
+
+~~~ bash
+python ~/.local/bin/my_script.py
+~~~
+
+### [getepicsvalues.py](https://github.com/kwierman/uBooNECRTSlowMon/blob/master/scripts/getepicsvalues.py)
+
+Gets the current values from EPICS and prints them via the root logger.
+
+### [sc2csv.py](https://github.com/kwierman/uBooNECRTSlowMon/blob/master/scripts/sc2csv.py)
+
+Dumps out the last `d` days up to `l` entries of influx entries into csv files.
+
+### [sc2epicsdaemon.py](https://github.com/kwierman/uBooNECRTSlowMon/blob/master/scripts/sc2epicsdaemon.py)
+
+Runs the daemonized app to continuously update the EPICS database from influx.
+
+### [update_prod.py](https://github.com/kwierman/uBooNECRTSlowMon/blob/master/scripts/update_prod.py)
+
+Manual run of the update process.
+
+> Note: This last script hasn't been checked in a while.
