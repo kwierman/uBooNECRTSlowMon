@@ -112,10 +112,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
 
 
 class BaseOccQuery(BaseCalcMixin, FEBStatsQuery):
-  def __init__(self, **kwargs):
-    BaseQuery.__init__(self, **kwargs)
-    self.updates=[]
-    self.max_len = sc_set.OCC_UPDATE_RATE/sc_set.POLL_RATE
+  max_len = sc_set.OCC_UPDATE_RATE/sc_set.POLL_RATE
   def update(self):
     value = self.get_value()
     self.updates.append(value)
@@ -129,6 +126,7 @@ class MaxBuff_OCC(BaseOccQuery):
   path=sc_set.MaxBuff_OCC_Path
   logger = logging.getLogger(path)
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
+  updates=[]
 
   def get_value(self):
     self.limit=1000
@@ -160,7 +158,8 @@ class MinBuff_OCC(BaseOccQuery):
   path=sc_set.MinBuff_OCC_Path
   logger = logging.getLogger(path)
   febs = sc_set.FT_FEBS+sc_set.BOTTOM_FEBS+sc_set.PIPE_FEBS+sc_set.TOP_FEBS
-
+  updates=[]
+  
   def get_value(self):
     self.limit=1000
     min_rate = 1.e6
