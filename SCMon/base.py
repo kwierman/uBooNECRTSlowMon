@@ -13,7 +13,7 @@ class BaseQuery:
   def default_client(cls):
     return cls._client
 
-  def __init__(self, client=None, columns=None, constraints=None, limit=None):
+  def __init__(self, client=None, columns=None, constraints=None, limit=None, handler=None):
     if client is not None:
       self.client = client
     else:
@@ -21,6 +21,8 @@ class BaseQuery:
     self.columns = columns
     self.constraints=constraints
     self.limit = limit
+    if handler is not None:
+      self.logger.addHandler(handler)
 
   def list_series(self):
     return self.client.query("select * from /.*/ limit 1")

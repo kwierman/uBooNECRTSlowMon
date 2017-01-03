@@ -13,8 +13,16 @@ class App():
         self.stderr_path = '/dev/tty'
         self.pidfile_path =  settings.PID_PATH
         self.pidfile_timeout = 5
+
+        self.logger = logging.getLogger("SCMon")
+        self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        self.handler = logging.FileHandler(settings.LOG_PATH)
+        self.logger.setLevel(logging.DEBUG)
+        self.handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+
         self.__client__ = MessageQuery.default_client()
-        self.__queries__ = [query_cls(self.__client__) for query_cls in self.query_classes]
+        self.__queries__ = [query_cls(client=self.__client__,handler=self.handler) for query_cls in self.query_classes]
             
     def run(self):
 
