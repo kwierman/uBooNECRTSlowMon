@@ -5,7 +5,7 @@ from influxdb import InfluxDBClient, DataFrameClient
 import logging
 
 class BaseQuery:
-  logger = logging.getLogger("BaseQuery")
+  logger = logging.getLogger(__name__)
   _client = DataFrameClient('localhost', 8086, 'root', 'root', 'crt')
   table = "messages"
 

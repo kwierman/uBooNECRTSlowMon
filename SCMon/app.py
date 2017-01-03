@@ -1,11 +1,10 @@
 import time
 import logging
 from SCMon.queries import MessageQuery
-from SCMon.calculators import (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum, MaxBuff_OCC, MinBuff_OCC)
+from SCMon.calculations import query_classes
 from SCMon import settings
 
 class App():
-    query_classes = (DRVErrFlag_FTSide, DRVErrFlag_bottom, DRVErrFlag_pipeside, DRVErrFlag_top, EVTRate_Sum, MaxBuff_OCC, MinBuff_OCC)
     
     def __init__(self):
         self.stdin_path = '/dev/null'
@@ -14,7 +13,7 @@ class App():
         self.pidfile_path =  settings.PID_PATH
         self.pidfile_timeout = 5
 
-        self.logger = logging.getLogger("SCMon")
+        self.logger = logging.getLogger()
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         self.handler = logging.FileHandler(settings.LOG_PATH)
         self.logger.setLevel(logging.DEBUG)
@@ -22,7 +21,7 @@ class App():
         self.logger.addHandler(self.handler)
 
         self.__client__ = MessageQuery.default_client()
-        self.__queries__ = [query_cls(client=self.__client__,handler=self.handler) for query_cls in self.query_classes]
+        self.__queries__ = [query_cls(client=self.__client__) for query_cls in query_classes]
             
     def run(self):
 
