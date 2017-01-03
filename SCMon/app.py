@@ -27,7 +27,7 @@ class App():
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         self.handler = RotatingFileHandler(
               settings.LOG_PATH, maxBytes=settings.LOG_LENGTH_BYTES, backupCount=settings.N_LOGS-1)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.INFO)
         self.handler.setFormatter(self.formatter)
         self.logger.addHandler(self.handler)
 
