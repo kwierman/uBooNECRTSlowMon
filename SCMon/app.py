@@ -18,8 +18,8 @@ class App():
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         self.handler = logging.FileHandler(settings.LOG_PATH)
         self.logger.setLevel(logging.DEBUG)
-        self.handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
+        self.handler.setFormatter(self.formatter)
+        self.logger.addHandler(self.handler)
 
         self.__client__ = MessageQuery.default_client()
         self.__queries__ = [query_cls(client=self.__client__,handler=self.handler) for query_cls in self.query_classes]
