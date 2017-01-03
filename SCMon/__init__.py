@@ -1,5 +1,5 @@
-from .queries import (MessageQuery,
+from SCMon.queries import (MessageQuery,
                       FEBStatsQuery,
                       DRVStatsQuery,
                       EventsQuery)
-from App import app
+from SCMon.App import app
