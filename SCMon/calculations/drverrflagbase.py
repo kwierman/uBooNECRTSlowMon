@@ -33,9 +33,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         index = len(feb_rows)-1
         lostcpu = feb_rows['lostcpu'][index]
         lostfpga = feb_rows['lostfpga'][index]
-        ts0ok= feb_rows['ts0ok'][index]
-        ts1ok = feb_rows['ts1ok'][index]
-        if lostcpu==0 and lostfpga==0 and ts0ok==None and ts1ok==None:
+        if lostcpu==0 and lostfpga==0:
           return 1
     except Exception as e:
       self.logger.error(e)
