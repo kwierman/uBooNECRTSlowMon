@@ -17,4 +17,4 @@ class DRVErrFlag_Top(DRVErrFlag_Base):
       this class is not used until the TOP 
       panel is installed.
     """
-    return 1.0
+    return 0.0
