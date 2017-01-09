@@ -1,3 +1,4 @@
+import logging
 from SCMon import FEBStatsQuery
 from SCMon.calculations.base import BaseCalcMixin
 from SCMon import settings as sc_set
