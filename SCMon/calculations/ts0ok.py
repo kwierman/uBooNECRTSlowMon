@@ -6,3 +6,4 @@ class TS0OKQuery(BaseTSQuery):
   path=sc_set.TS0OK_PATH
   logger = logging.getLogger(__name__)
   updates=[]
+  column_title='ts0ok'

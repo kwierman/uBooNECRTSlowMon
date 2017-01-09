@@ -33,7 +33,7 @@ class BaseTSQuery(BaseCalcMixin, FEBStatsQuery):
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
           index = len(feb_rows)-1
-          ok = float(feb_rows[column_title][index])
+          ok = float(feb_rows[self.column_title][index])
         except:
           self.logger.warning("Could not find ts0ok for: "+label)
         n_ok+=float(ok)
