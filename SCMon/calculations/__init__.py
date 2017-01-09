@@ -7,8 +7,10 @@ from drverrflagpipeside import DRVErrFlag_PipeSide
 from evtratesum import EVTRate_Sum
 from maxbuffocc import MaxBuff_OCC
 from minbuffocc import MinBuff_OCC
+from ts0ok import TS0OKQuery
+from ts1ok import TS1OKQuery
 
 query_classes = (DRVErrFlag_bottom, DRVErrFlag_Top, DRVErrFlag_FTSide, 
                  DRVErrFlag_PipeSide, EVTRate_Sum, MaxBuff_OCC, 
-                 MinBuff_OCC)
+                 MinBuff_OCC, TS0OKQuery, TS1OKQuery)
 
