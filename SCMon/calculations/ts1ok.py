@@ -1,5 +1,6 @@
 import logging
 from basets import BaseTSQuery
+from SCMon import settings as sc_set
 
 class TS1OKQuery(BaseTSQuery):
   path=sc_set.TS1OK_PATH  
