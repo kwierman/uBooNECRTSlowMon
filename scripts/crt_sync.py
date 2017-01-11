@@ -22,7 +22,7 @@ class App():
         self.logger.setLevel(logging.INFO)
         self.handler.setFormatter(self.formatter)
         self.logger.addHandler(self.handler)
-    def sync_next(self.):
+    def sync_next(self):
         try:
             remote_string = "{}@{}:{}/*.json".format(remote_user,
                                           remote_server,
