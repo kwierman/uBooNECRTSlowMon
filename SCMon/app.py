@@ -1,57 +1,48 @@
-import subprocess
+import time
 import logging
 from logging.handlers import RotatingFileHandler
-import daemon
-from daemon import runner
-import time
-import os
-
-local_directory="/raid/tpc_timestamps"
-remote_user="uboonepro"
-remote_server="ubdaq-prod-evb"
-remote_directory="/data/uboonedaq/rawdata"
+from SCMon.queries import MessageQuery
+from SCMon.calculations import query_classes
+from SCMon import settings
 
 class App():
+    """
+        Defines the daemonized application for running the Slow Controls interface
+    """
+    
     def __init__(self):
+        """
+            Sets up logging and daemon definitions for this project.
+
+            :note: Greedily grabs the root logger. This is so that everything in the root 
+            hierarchy logs properly
+        """
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
         self.stderr_path = '/dev/tty'
-        self.pidfile_path =  '/home/kwierman/evb_sync.pid'
+        self.pidfile_path =  settings.PID_PATH
         self.pidfile_timeout = 5
+
         self.logger = logging.getLogger()
         self.formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        self.handler = RotatingFileHandler('/home/kwierman/evb_sync.log', maxBytes=1e8, backupCount=2)
+        self.handler = RotatingFileHandler(
+              settings.LOG_PATH, maxBytes=settings.LOG_LENGTH_BYTES, backupCount=settings.N_LOGS-1)
         self.logger.setLevel(logging.INFO)
         self.handler.setFormatter(self.formatter)
         self.logger.addHandler(self.handler)
-    def sync_next(self):
-        try:
-            remote_string = "{}@{}:{}/*.json".format(remote_user,
-                                          remote_server,
-                                          remote_directory)
-            success = subprocess.check_call(['rsync',remote_string,local_directory])
-            return (success ==0)
-        except:
-            return False
-    def cleanup(self):
-        current_files = os.listdir(local_directory)
-        for i in current_files:
-            full_path = os.path.join(local_directory, i)
-            age = os.stat(full_path).st_mtime
-            one_week_ago = time.time()-float(60*60*24*7)
-            if age<one_week_ago:
-                os.remove(full_path)
-    def run(self):
-        while(1):
-            sync = self.sync_next()
-            self.cleanup()
-            if sync:
-                time.sleep(60)
-            else:
-                time.sleep(20)
 
-if __name__ == "__main__":
-    app = App()
-    daemon_runner = runner.DaemonRunner(app)
-    daemon_runner.daemon_context.files_preserve=[app.handler.stream]
-    daemon_runner.do_action()
+        self.__client__ = MessageQuery.default_client()
+        self.__queries__ = [query_cls(client=self.__client__) for query_cls in query_classes]
+            
+    def run(self):
+        """
+            Runs the VERY simple event loop which simply queries on each query type.
+        """
+
+        while True:
+            prev_time = int(time.time())
+            updates= [query.update() for query in self.__queries__]
+            current_time = int(time.time())
+            time_to_sleep = current_time-prev_time+settings.POLL_RATE
+            if time_to_sleep>0:
+                time.sleep(time_to_sleep)
