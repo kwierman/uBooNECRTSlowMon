@@ -30,16 +30,20 @@ class App():
                                           remote_server,
                                           remote_directory)
             success = subprocess.check_call(['rsync',remote_string,local_directory])
+            self.logger.info("Update Success")
             return (success ==0)
         except:
+            self.logger.info("Update did not succeed")
             return False
     def cleanup(self):
         current_files = os.listdir(local_directory)
+        self.logger.info("Cleaning up files")
         for i in current_files:
             full_path = os.path.join(local_directory, i)
             age = os.stat(full_path).st_mtime
             one_week_ago = time.time()-float(60*60*24*7)
             if age<one_week_ago:
+                self.logger.info("Cleaning Up: {}".format(full_path))
                 os.remove(full_path)
     def run(self):
         while(1):
