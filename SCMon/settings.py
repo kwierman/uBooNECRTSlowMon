@@ -6,7 +6,7 @@ N_LOGS = 3 # 3 Backups
 POLL_RATE = 5
 OCC_UPDATE_RATE=30
 
-time_interval= 'time > now() - 5m'
+time_interval= 'time > now() - 1m'
 limit_queries = 1
 
 FT_FEBS=[26, 27, 28, 29, 30, 31, 55, 56, 57, 58, 59, 60, 61]
