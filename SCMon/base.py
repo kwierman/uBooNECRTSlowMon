@@ -56,7 +56,7 @@ class BaseQuery:
     _query+=";"
     self.logger.debug("Constructing Query: "+_query)
     try:
-      return self.client.query(_query)[self.table]
+      return self.client.query(_query)[self.table].sort(axis=0, ascending=False)
     except Exception as e:
       self.logger.error(e)
       self.logger.error(str(self.client.query(_query)))
