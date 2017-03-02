@@ -15,7 +15,7 @@ class MinBuff_OCC(BaseOccQuery):
   def get_value(self):
     self.limit=1000
     min_rate = 1.e6
-    self.constraints = ['time > now() - 1d']
+    self.constraints = [sc_set.time_interval]
 
     try:
       df = self.construct_query()
