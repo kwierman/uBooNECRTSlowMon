@@ -35,7 +35,7 @@ class BaseTSQuery(BaseCalcMixin, FEBStatsQuery):
           index = len(feb_rows)-1
           ok = float(feb_rows[self.column_title][index])
         except:
-          self.logger.warning("Could not find ts0ok for: "+label)
+          self.logger.warning("Could not find {} for: ".format(self.column_title)+label)
         n_ok+=float(ok)
       return n_ok/len(self.febs)
     except Exception as e:
