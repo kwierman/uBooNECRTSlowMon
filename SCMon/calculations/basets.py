@@ -32,7 +32,7 @@ class BaseTSQuery(BaseCalcMixin, FEBStatsQuery):
         ok=0.
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          index = len(feb_rows)-1
+          index = 0 # len(feb_rows)-1
           ok = float(feb_rows[self.column_title][index])
         except:
           self.logger.warning("Could not find {} for: ".format(self.column_title)+label)
