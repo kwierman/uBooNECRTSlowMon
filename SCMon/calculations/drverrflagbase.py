@@ -30,7 +30,7 @@ class DRVErrFlag_Base(BaseCalcMixin, FEBStatsQuery):
         if feb<10:
           label = "0{}".format(feb)
         feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-        index = len(feb_rows)-1
+        index = 0 # len(feb_rows)-1
         lostcpu = int(feb_rows['lostcpu'][index])
         #lostfpga = int(feb_rows['lostfpga'][index])
         #self.logger.info("Flags for feb: {}, {}, {}".format(feb, lostcpu, lostfpga))
