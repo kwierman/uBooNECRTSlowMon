@@ -27,7 +27,7 @@ class EVTRate_Sum(BaseCalcMixin, FEBStatsQuery):
         rate=0.
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          index = len(feb_rows)-1
+          index = 0 # len(feb_rows)-1
           rate = float(feb_rows['evrate'][index])
         except:
           self.logger.warning("Could not find rate for: "+label)
