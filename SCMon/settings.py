@@ -1,5 +1,5 @@
-PID_PATH = '/home/kwierman/scmon.pid'
-LOG_PATH = '/home/kwierman/scmon.log'
+PID_PATH = '/home/uboonepro/scmon/scmon.pid'
+LOG_PATH = '/home/uboonepro/scmon/scmon.log'
 LOG_LENGTH_BYTES = 50*1024*1024 # 50 MB
 N_LOGS = 3 # 3 Backups
 
@@ -16,7 +16,15 @@ BOTTOM_FEBS=[11, 12, 14, 17, 18, 19, 22, 23, 24]
 # TEMPORARY UNTIL TOP PANELS ARE INSTALLED
 TOP_FEBS=[]#[62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 
            #78, 79, 80, 81, 82, 83, 84, 85]
+"""                                                                                                      
+[105,106,107,108,109,                                                                                    
+          111,112,113,114,115,                                                                           
+          116,117,118,119,120,                                                                           
+          121,195,123,124,125,                                                                           
+          126,127,128,129]                                                                               
+"""
 
+           
 BASE_PATH="uB_DAQStatus_CRTDAQX_evb"
 DRVErrFlag_FTSide_Path = "drverrflag_FTside"
 DRVErrFlag_bottom_Path = "drverrflag_bottom"
