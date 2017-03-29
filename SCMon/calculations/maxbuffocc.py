@@ -26,7 +26,7 @@ class MaxBuff_OCC(BaseOccQuery):
           label = "0{}".format(feb)
         try:
           feb_rows = df.loc[df['host'] == "\"feb{}\"".format(label)]
-          index = len(feb_rows)-1
+          index = 0 #  len(feb_rows)-1
           rate = float(feb_rows['evtsperpoll'][index])
           if rate>max_rate:
             max_rate = rate
